@@ -1,0 +1,27 @@
+Feature Detection by Harris corner detector algorithm (Wikipedia)
+    1. Color to grayscale
+    2. Spatial derivative calculation
+    3. Structure tensor setup
+    4. Harris response calculation
+    5. Non-maximum suppression
+
+=> we display the keypoints using a custom drawKeypoints as the opencv version i installed has binding issue on that method
+
+Feature Description
+    1. Compute gradient matrix of the image (dx, dy, magnitude, angle)
+    2. Iterate every key point of the image
+        a. We get the 16x16 window of the key point
+        b. we compute the rotation of the patch
+        c. key_point_descriptions = compute_histogram(array of 4 sub patches of the 16x16 patch)
+            (Each sub patch is 4x4 patch of 16 pixel, each histogram is 8 element array. (so total 16 pixels x 8 elements = 128)
+
+Feature Matching
+    1. Iterate every keypoint with its descriptor
+        a. Compute SSD of key point with every other key point in other image
+        b. Find 1st and 2nd Best Key point
+        c. If the 1st best SSD / 2nd best SSD ratio is < 0.5 and best SSD is < 0.3
+                We can add to matches list
+
+    2. We sort this list with respect to there distance
+
+=> display the best 25 matches using drawMatches function
